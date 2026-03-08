@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResistAI — Antibiotic Resistance Predictor</title>
+    <meta name="description" content="AI-powered antibiotic resistance prediction from bacterial genomic data using machine learning">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --bg-primary:#0a0e1a;--bg-secondary:#111827;--bg-card:#1a1f35;--bg-card-hover:#222847;
+            --text-primary:#f1f5f9;--text-secondary:#94a3b8;--text-muted:#64748b;
+            --accent-purple:#8b5cf6;--accent-cyan:#06b6d4;--accent-green:#22c55e;
+            --accent-red:#ef4444;--accent-amber:#f59e0b;--accent-pink:#ec4899;
+            --border:#1e293b;--border-light:#334155;
+            --glow-purple:rgba(139,92,246,0.3);--glow-cyan:rgba(6,182,212,0.3);
+        }
+        body{font-family:'Inter',sans-serif;background:var(--bg-primary);color:var(--text-primary);min-height:100vh;overflow-x:hidden}
+        
+        /* ── Animated Background ── */
+        .bg-grid{position:fixed;inset:0;z-index:0;
+            background-image:radial-gradient(circle at 1px 1px,rgba(139,92,246,0.08) 1px,transparent 0);
+            background-size:40px 40px}
+        .bg-glow{position:fixed;z-index:0;border-radius:50%;filter:blur(120px);opacity:0.15;animation:float 20s infinite}
+        .bg-glow-1{width:600px;height:600px;background:var(--accent-purple);top:-200px;left:-100px}
+        .bg-glow-2{width:500px;height:500px;background:var(--accent-cyan);bottom:-200px;right:-100px;animation-delay:-10s}
+        @keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,30px)}}
+        
+        .container{max-width:1400px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+        
+        /* ── Header ── */
+        .header{padding:24px 0;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+        .logo{display:flex;align-items:center;gap:12px}
+        .logo-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--accent-purple),var(--accent-cyan));display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:white;box-shadow:0 0 20px var(--glow-purple)}
+        .logo-text{font-size:24px;font-weight:800;background:linear-gradient(135deg,var(--accent-purple),var(--accent-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .logo-sub{font-size:11px;color:var(--text-muted);letter-spacing:2px;text-transform:uppercase;font-weight:500}
+        .badge{padding:6px 14px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(139,92,246,0.15);color:var(--accent-purple);border:1px solid rgba(139,92,246,0.3)}
+        
+        /* ── Hero ── */
+        .hero{text-align:center;padding:48px 0 32px}
+        .hero h1{font-size:42px;font-weight:900;line-height:1.1;margin-bottom:12px;background:linear-gradient(135deg,#fff,var(--accent-purple),var(--accent-cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .hero p{color:var(--text-secondary);font-size:16px;max-width:600px;margin:0 auto}
+        
+        /* ── Grid Layout ── */
+        .main-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:24px 0}
+        .full-width{grid-column:1/-1}
+        
+        /* ── Cards ── */
+        .card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:24px;transition:all 0.3s ease;position:relative;overflow:hidden}
+        .card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent-purple),var(--accent-cyan),transparent);opacity:0.5}
+        .card:hover{border-color:var(--border-light);box-shadow:0 8px 30px rgba(0,0,0,0.3)}
+        .card-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+        .card-title .icon{font-size:16px}
+        
+        /* ── FASTA Input ── */
+        .fasta-textarea{width:100%;height:200px;background:var(--bg-primary);border:1px solid var(--border);border-radius:12px;padding:16px;color:var(--accent-green);font-family:'JetBrains Mono',monospace;font-size:13px;resize:vertical;outline:none;transition:border-color 0.3s}
+        .fasta-textarea:focus{border-color:var(--accent-purple);box-shadow:0 0 0 3px var(--glow-purple)}
+        .fasta-textarea::placeholder{color:var(--text-muted)}
+        
+        .btn-row{display:flex;gap:12px;margin-top:16px}
+        .btn{padding:12px 28px;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;transition:all 0.3s;border:none;display:flex;align-items:center;gap:8px;font-family:'Inter',sans-serif}
+        .btn-primary{background:linear-gradient(135deg,var(--accent-purple),#6d28d9);color:white;box-shadow:0 4px 20px var(--glow-purple)}
+        .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 30px var(--glow-purple)}
+        .btn-primary:active{transform:translateY(0)}
+        .btn-secondary{background:var(--bg-secondary);color:var(--text-secondary);border:1px solid var(--border)}
+        .btn-secondary:hover{background:var(--bg-card);color:var(--text-primary)}
+        .btn:disabled{opacity:0.5;cursor:not-allowed;transform:none!important}
+        
+        /* ── Loading ── */
+        .loader{display:none;text-align:center;padding:40px}
+        .loader.active{display:block}
+        .spinner{width:48px;height:48px;border:3px solid var(--border);border-top-color:var(--accent-purple);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .loader p{color:var(--text-secondary);font-size:14px}
+        
+        /* ── Results ── */
+        .results-section{display:none}
+        .results-section.active{display:block}
+        
+        /* Prediction Cards */
+        .pred-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+        .pred-card{background:var(--bg-secondary);border-radius:14px;padding:20px;border:1px solid var(--border);text-align:center;transition:all 0.4s;position:relative;overflow:hidden}
+        .pred-card::after{content:'';position:absolute;inset:0;opacity:0.05;border-radius:14px}
+        .pred-card.resistant::after{background:var(--accent-red)}
+        .pred-card.susceptible::after{background:var(--accent-green)}
+        .pred-card.intermediate::after{background:var(--accent-amber)}
+        .pred-card .ab-name{font-size:18px;font-weight:800;margin-bottom:4px;text-transform:capitalize}
+        .pred-card .drug-class{font-size:11px;color:var(--text-muted);margin-bottom:12px}
+        .pred-card .phenotype{font-size:13px;font-weight:700;padding:6px 16px;border-radius:20px;display:inline-block;margin-bottom:8px}
+        .pred-card.resistant .phenotype{background:rgba(239,68,68,0.15);color:var(--accent-red);border:1px solid rgba(239,68,68,0.3)}
+        .pred-card.susceptible .phenotype{background:rgba(34,197,94,0.15);color:var(--accent-green);border:1px solid rgba(34,197,94,0.3)}
+        .pred-card.intermediate .phenotype{background:rgba(245,158,11,0.15);color:var(--accent-amber);border:1px solid rgba(245,158,11,0.3)}
+        .confidence{font-size:28px;font-weight:900;margin:8px 0 4px}
+        .conf-label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px}
+        
+        /* Probability Bars */
+        .prob-bars{margin-top:12px}
+        .prob-bar{display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:11px}
+        .prob-bar .label{width:80px;text-align:right;color:var(--text-muted)}
+        .prob-bar .track{flex:1;height:6px;background:var(--bg-primary);border-radius:3px;overflow:hidden}
+        .prob-bar .fill{height:100%;border-radius:3px;transition:width 1s ease}
+        .prob-bar .value{width:40px;font-weight:600;font-family:'JetBrains Mono',monospace}
+        
+        /* ── Clinical Panel ── */
+        .clinical-card{padding:16px;border-radius:12px;margin-bottom:12px;border-left:4px solid;background:var(--bg-secondary)}
+        .clinical-card .status{font-size:12px;font-weight:800;letter-spacing:1px;margin-bottom:4px}
+        .clinical-card .message{font-size:13px;color:var(--text-secondary);line-height:1.5}
+        .overall-box{padding:16px;border-radius:12px;background:linear-gradient(135deg,rgba(139,92,246,0.1),rgba(6,182,212,0.1));border:1px solid rgba(139,92,246,0.2);margin-top:16px;font-size:14px;font-weight:600;text-align:center}
+        .mdr-warning{background:linear-gradient(135deg,rgba(239,68,68,0.1),rgba(245,158,11,0.1));border-color:rgba(239,68,68,0.3);color:var(--accent-red)}
+        
+        /* ── Gene Network ── */
+        #network-svg{width:100%;height:450px;background:var(--bg-secondary);border-radius:12px;border:1px solid var(--border)}
+        .network-legend{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap}
+        .legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-secondary)}
+        .legend-dot{width:10px;height:10px;border-radius:50%}
+        
+        /* ── Metrics ── */
+        .metric-row{display:flex;gap:16px;margin-bottom:12px}
+        .metric-box{flex:1;background:var(--bg-secondary);border-radius:10px;padding:14px;text-align:center;border:1px solid var(--border)}
+        .metric-box .val{font-size:24px;font-weight:800;font-family:'JetBrains Mono',monospace}
+        .metric-box .lbl{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+        .metric-box.green .val{color:var(--accent-green)}
+        .metric-box.purple .val{color:var(--accent-purple)}
+        .metric-box.cyan .val{color:var(--accent-cyan)}
+        
+        /* ── Detected Genes Table ── */
+        .gene-table{width:100%;border-collapse:collapse;font-size:13px}
+        .gene-table th{text-align:left;padding:10px 12px;color:var(--text-muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:1px;border-bottom:1px solid var(--border)}
+        .gene-table td{padding:8px 12px;border-bottom:1px solid var(--border)}
+        .gene-table tr:hover td{background:rgba(139,92,246,0.05)}
+        .gene-tag{padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600}
+        .gene-tag.primary{background:rgba(139,92,246,0.15);color:var(--accent-purple)}
+        .gene-tag.secondary{background:rgba(6,182,212,0.15);color:var(--accent-cyan)}
+        .gene-tag.snp{background:rgba(249,115,22,0.15);color:#f97316}
+        
+        /* ── Charts ── */
+        .chart-container{position:relative;height:250px}
+        
+        /* ── Animations ── */
+        .fade-in{animation:fadeIn 0.6s ease forwards;opacity:0}
+        @keyframes fadeIn{to{opacity:1}}
+        .slide-up{animation:slideUp 0.5s ease forwards;opacity:0;transform:translateY(20px)}
+        @keyframes slideUp{to{opacity:1;transform:translateY(0)}}
+        
+        /* ── Responsive ── */
+        @media(max-width:900px){
+            .main-grid,.pred-grid{grid-template-columns:1fr}
+            .hero h1{font-size:28px}
+            .metric-row{flex-wrap:wrap}
+        }
+        
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar{width:6px}
+        ::-webkit-scrollbar-track{background:var(--bg-primary)}
+        ::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:3px}
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">R</div>
+                <div>
+                    <div class="logo-text">ResistAI</div>
+                    <div class="logo-sub">Genomic AMR Predictor</div>
+                </div>
+            </div>
+            <div class="badge">🧬 E. coli · 3 Antibiotics · XGBoost</div>
+        </header>
+
+        <!-- Hero -->
+        <section class="hero">
+            <h1>Predict Antibiotic Resistance<br>from Genomic Data</h1>
+            <p>Upload a bacterial genome assembly (FASTA) and get instant AI-powered resistance predictions with clinical recommendations</p>
+        </section>
+
+        <!-- Main Content -->
+        <div class="main-grid">
+            <!-- Input Section -->
+            <div class="card full-width" id="input-section">
+                <div class="card-title"><span class="icon">🧬</span> Genome Assembly Input (FASTA Format)</div>
+                <textarea class="fasta-textarea" id="fasta-input" placeholder=">contig_1 Escherichia coli genome assembly&#10;ATGCGATCGATCGATCGATCGATCGATCGATCGATCG...&#10;&#10;Paste your FASTA sequence here or click 'Load Sample' to try a demo"></textarea>
+                <div class="btn-row">
+                    <button class="btn btn-primary" id="btn-predict" onclick="runPrediction()">
+                        <span>⚡</span> Predict Resistance
+                    </button>
+                    <button class="btn btn-secondary" onclick="loadSample()">
+                        <span>📋</span> Load Sample FASTA
+                    </button>
+                    <button class="btn btn-secondary" onclick="clearAll()">
+                        <span>🗑️</span> Clear
+                    </button>
+                </div>
+            </div>
+
+            <!-- Loading -->
+            <div class="loader full-width" id="loader">
+                <div class="spinner"></div>
+                <p id="loading-text">Analyzing genomic features...</p>
+            </div>
+
+            <!-- Results -->
+            <div class="results-section full-width" id="results">
+                <!-- Predictions -->
+                <div class="card full-width slide-up" style="animation-delay:0.1s;margin-bottom:24px">
+                    <div class="card-title"><span class="icon">🎯</span> Resistance Predictions</div>
+                    <div class="pred-grid" id="pred-grid"></div>
+                </div>
+
+                <div class="main-grid" style="padding:0">
+                    <!-- Clinical Recommendations -->
+                    <div class="card slide-up" style="animation-delay:0.2s">
+                        <div class="card-title"><span class="icon">💊</span> Clinical Recommendations</div>
+                        <div id="clinical-panel"></div>
+                    </div>
+
+                    <!-- Model Performance -->
+                    <div class="card slide-up" style="animation-delay:0.3s">
+                        <div class="card-title"><span class="icon">📊</span> Model Performance</div>
+                        <div id="metrics-panel"></div>
+                    </div>
+
+                    <!-- Gene Network Visualization -->
+                    <div class="card full-width slide-up" style="animation-delay:0.4s">
+                        <div class="card-title"><span class="icon">🕸️</span> Resistance Gene Network</div>
+                        <svg id="network-svg"></svg>
+                        <div class="network-legend">
+                            <div class="legend-item"><div class="legend-dot" style="background:var(--accent-green)"></div>Susceptible</div>
+                            <div class="legend-item"><div class="legend-dot" style="background:var(--accent-red)"></div>Resistant</div>
+                            <div class="legend-item"><div class="legend-dot" style="background:var(--accent-amber)"></div>Intermediate</div>
+                            <div class="legend-item"><div class="legend-dot" style="background:#8b5cf6"></div>Primary Gene</div>
+                            <div class="legend-item"><div class="legend-dot" style="background:#06b6d4"></div>Secondary Mechanism</div>
+                            <div class="legend-item"><div class="legend-dot" style="background:#f97316"></div>SNP Marker</div>
+                        </div>
+                    </div>
+
+                    <!-- Detected Genes -->
+                    <div class="card slide-up" style="animation-delay:0.5s">
+                        <div class="card-title"><span class="icon">🔬</span> Detected Resistance Genes</div>
+                        <div style="max-height:350px;overflow-y:auto">
+                            <table class="gene-table" id="gene-table">
+                                <thead><tr><th>Gene</th><th>Category</th><th>Associated</th></tr></thead>
+                                <tbody id="gene-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Feature Importance Chart -->
+                    <div class="card slide-up" style="animation-delay:0.6s">
+                        <div class="card-title"><span class="icon">📈</span> Feature Importance (SHAP)</div>
+                        <div class="chart-container"><canvas id="importance-chart"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+const API = '';
+let importanceChart = null;
+
+async function loadSample() {
+    try {
+        const res = await fetch(API + '/api/sample_fasta');
+        const data = await res.json();
+        document.getElementById('fasta-input').value = data.fasta;
+    } catch(e) {
+        // Fallback sample
+        const bases = 'ATGC';
+        let seq = '';
+        for(let i=0;i<5000;i++) seq += bases[Math.floor(Math.random()*4)];
+        let fasta = '>Escherichia_coli_sample contig_1\n';
+        for(let i=0;i<seq.length;i+=70) fasta += seq.slice(i,i+70)+'\n';
+        document.getElementById('fasta-input').value = fasta;
+    }
+}
+
+function clearAll() {
+    document.getElementById('fasta-input').value = '';
+    document.getElementById('results').classList.remove('active');
+}
+
+async function runPrediction() {
+    const fasta = document.getElementById('fasta-input').value.trim();
+    if(!fasta){alert('Please enter a FASTA sequence');return}
+    
+    const btn = document.getElementById('btn-predict');
+    btn.disabled = true;
+    document.getElementById('loader').classList.add('active');
+    document.getElementById('results').classList.remove('active');
+    
+    const msgs = ['Parsing FASTA assembly...','Scanning for AMR genes...','Running resistance models...','Generating clinical report...'];
+    let mi = 0;
+    const msgInterval = setInterval(()=>{
+        document.getElementById('loading-text').textContent = msgs[mi % msgs.length];
+        mi++;
+    }, 800);
+    
+    try {
+        const res = await fetch(API + '/api/predict', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({fasta})
+        });
+        const data = await res.json();
+        if(data.error){alert('Error: '+data.error);return}
+        renderResults(data);
+    } catch(e) {
+        alert('Connection error. Is the server running?');
+    } finally {
+        clearInterval(msgInterval);
+        btn.disabled = false;
+        document.getElementById('loader').classList.remove('active');
+    }
+}
+
+function renderResults(data) {
+    document.getElementById('results').classList.add('active');
+    renderPredictions(data.predictions);
+    renderClinical(data.clinical);
+    renderMetrics(data.model_metrics);
+    renderGenes(data.detected_genes);
+    renderNetwork(data.network);
+    renderImportanceChart(data.model_metrics);
+    window.scrollTo({top:document.getElementById('results').offsetTop - 20, behavior:'smooth'});
+}
+
+function renderPredictions(predictions) {
+    const grid = document.getElementById('pred-grid');
+    const drugClasses = {ampicillin:'Beta-lactam (Penicillin)',ciprofloxacin:'Fluoroquinolone',gentamicin:'Aminoglycoside'};
+    grid.innerHTML = '';
+    
+    for(const [ab, pred] of Object.entries(predictions)) {
+        const cls = pred.phenotype.toLowerCase();
+        const card = document.createElement('div');
+        card.className = `pred-card ${cls}`;
+        
+        let probBars = '';
+        for(const [label, prob] of Object.entries(pred.probabilities)) {
+            const color = label==='Resistant'?'var(--accent-red)':label==='Susceptible'?'var(--accent-green)':'var(--accent-amber)';
+            probBars += `<div class="prob-bar"><span class="label">${label}</span><div class="track"><div class="fill" style="width:${prob*100}%;background:${color}"></div></div><span class="value">${(prob*100).toFixed(1)}%</span></div>`;
+        }
+        
+        card.innerHTML = `
+            <div class="ab-name">${ab}</div>
+            <div class="drug-class">${drugClasses[ab]||''}</div>
+            <div class="phenotype">${pred.phenotype}</div>
+            <div class="confidence">${(pred.confidence*100).toFixed(1)}%</div>
+            <div class="conf-label">Confidence</div>
+            <div class="prob-bars">${probBars}</div>`;
+        grid.appendChild(card);
+    }
+}
+
+function renderClinical(clinical) {
+    const panel = document.getElementById('clinical-panel');
+    let html = '';
+    for(const rec of clinical.recommendations) {
+        html += `<div class="clinical-card" style="border-left-color:${rec.status_color}">
+            <div class="status" style="color:${rec.status_color}">${rec.status} — ${rec.antibiotic}</div>
+            <div class="message">${rec.message}</div></div>`;
+    }
+    const boxCls = clinical.mdr_risk ? 'overall-box mdr-warning' : 'overall-box';
+    html += `<div class="${boxCls}">${clinical.mdr_risk?'⚠️ ':'✅ '}${clinical.overall}</div>`;
+    panel.innerHTML = html;
+}
+
+function renderMetrics(metrics) {
+    const panel = document.getElementById('metrics-panel');
+    let html = '';
+    for(const [ab, m] of Object.entries(metrics)) {
+        html += `<div style="margin-bottom:16px"><div style="font-weight:700;text-transform:capitalize;margin-bottom:8px;font-size:14px">${ab}</div>
+        <div class="metric-row">
+            <div class="metric-box green"><div class="val">${(m.auc*100).toFixed(1)}%</div><div class="lbl">AUC</div></div>
+            <div class="metric-box purple"><div class="val">${(m.mcc*100).toFixed(0)}</div><div class="lbl">MCC×100</div></div>
+            <div class="metric-box cyan"><div class="val">${(m.accuracy*100).toFixed(1)}%</div><div class="lbl">Accuracy</div></div>
+        </div></div>`;
+    }
+    panel.innerHTML = html;
+}
+
+function renderGenes(genes) {
+    const tbody = document.getElementById('gene-tbody');
+    tbody.innerHTML = '';
+    const catMap = {primary_resistance:'primary',secondary_mechanism:'secondary',snp_marker:'snp',primary:'primary',secondary:'secondary',snps:'snp'};
+    const catLabel = {primary:'Primary Gene',secondary:'Secondary',snp:'SNP Marker'};
+    
+    for(const g of genes.slice(0,20)) {
+        const cat = catMap[g.category]||'snp';
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td style="font-family:'JetBrains Mono',monospace;font-weight:600;font-size:12px">${g.gene}</td>
+            <td><span class="gene-tag ${cat}">${catLabel[cat]||g.category}</span></td>
+            <td style="font-size:12px;color:var(--text-secondary)">${(g.associated_antibiotics||[]).map(a=>a.charAt(0).toUpperCase()+a.slice(1)).join(', ')}</td>`;
+        tbody.appendChild(tr);
+    }
+}
+
+function renderNetwork(network) {
+    const svg = d3.select('#network-svg');
+    svg.selectAll('*').remove();
+    const width = svg.node().getBoundingClientRect().width;
+    const height = 450;
+    svg.attr('viewBox',`0 0 ${width} ${height}`);
+
+    if(!network||!network.nodes||network.nodes.length===0) return;
+
+    const simulation = d3.forceSimulation(network.nodes)
+        .force('link', d3.forceLink(network.links).id(d=>d.id).distance(100).strength(d=>d.strength||0.3))
+        .force('charge', d3.forceManyBody().strength(-200))
+        .force('center', d3.forceCenter(width/2, height/2))
+        .force('collision', d3.forceCollide().radius(d=>d.size+5));
+
+    const defs = svg.append('defs');
+    const glow = defs.append('filter').attr('id','glow');
+    glow.append('feGaussianBlur').attr('stdDeviation',3).attr('result','blur');
+    glow.append('feMerge').selectAll('feMergeNode').data(['blur','SourceGraphic']).enter().append('feMergeNode').attr('in',d=>d);
+
+    const link = svg.append('g').selectAll('line').data(network.links).enter().append('line')
+        .style('stroke','rgba(255,255,255,0.1)').style('stroke-width',d=>Math.max(1,d.strength*5));
+
+    const node = svg.append('g').selectAll('g').data(network.nodes).enter().append('g')
+        .call(d3.drag().on('start',(e,d)=>{if(!e.active)simulation.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y})
+            .on('drag',(e,d)=>{d.fx=e.x;d.fy=e.y}).on('end',(e,d)=>{if(!e.active)simulation.alphaTarget(0);d.fx=null;d.fy=null}));
+
+    node.append('circle').attr('r',d=>d.size||10).attr('fill',d=>d.color||'#8b5cf6')
+        .attr('stroke','rgba(255,255,255,0.2)').attr('stroke-width',1.5).style('filter','url(#glow)');
+
+    node.append('text').text(d=>d.name).attr('dx',d=>(d.size||10)+6).attr('dy',4)
+        .style('fill','var(--text-secondary)').style('font-size','11px').style('font-family','Inter,sans-serif');
+
+    // Tooltip
+    node.append('title').text(d=>d.type==='antibiotic'?`${d.name}: ${d.phenotype}`:`Gene: ${d.name} (${d.category||''})`);
+
+    simulation.on('tick',()=>{
+        link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y).attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+        node.attr('transform',d=>`translate(${d.x},${d.y})`);
+    });
+}
+
+function renderImportanceChart(metrics) {
+    if(importanceChart) importanceChart.destroy();
+    const ctx = document.getElementById('importance-chart').getContext('2d');
+    
+    // Collect top features across all antibiotics
+    const allFeats = {};
+    for(const [ab, m] of Object.entries(metrics)) {
+        for(const f of (m.top_features||[]).slice(0,8)) {
+            if(!allFeats[f.gene]) allFeats[f.gene]={};
+            allFeats[f.gene][ab] = f.importance;
+        }
+    }
+    const labels = Object.keys(allFeats).slice(0,10);
+    const colors = ['rgba(139,92,246,0.8)','rgba(6,182,212,0.8)','rgba(34,197,94,0.8)'];
+    const datasets = Object.keys(metrics).map((ab,i)=>({
+        label:ab.charAt(0).toUpperCase()+ab.slice(1),
+        data:labels.map(l=>(allFeats[l]||{})[ab]||0),
+        backgroundColor:colors[i],borderColor:colors[i],borderWidth:1
+    }));
+
+    importanceChart = new Chart(ctx, {
+        type:'bar', data:{labels,datasets},
+        options:{
+            indexAxis:'y',responsive:true,maintainAspectRatio:false,
+            plugins:{legend:{labels:{color:'#94a3b8',font:{family:'Inter'}}}},
+            scales:{
+                x:{grid:{color:'rgba(255,255,255,0.05)'},ticks:{color:'#64748b'}},
+                y:{grid:{display:false},ticks:{color:'#94a3b8',font:{family:'JetBrains Mono',size:10}}}
+            }
+        }
+    });
+}
+
+// Auto-scroll animation
+document.addEventListener('DOMContentLoaded',()=>{
+    document.querySelectorAll('.card').forEach((el,i)=>{
+        el.style.animationDelay = (i*0.1)+'s';
+    });
+});
+</script>
+</body>
+</html>
