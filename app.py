@@ -818,6 +818,9 @@ def multi_sample_fasta():
 
 
 # ── Main ───────────────────────────────────────────────────────────────
+# Load models at import time so gunicorn workers have them ready
+load_models()
+
 if __name__ == '__main__':
-    load_models()
     app.run(debug=True, port=5000, host='0.0.0.0')
+
