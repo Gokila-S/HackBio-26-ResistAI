@@ -1,0 +1,1442 @@
+{
+  "organism": "Escherichia coli",
+  "organism_type": "Gram-negative",
+  "antibiotics": [
+    "ampicillin",
+    "ciprofloxacin",
+    "gentamicin"
+  ],
+  "n_features": 51,
+  "feature_names": [
+    "aac(3)-IIa",
+    "aac(3)-IVa",
+    "aac(6')-Ib",
+    "aac(6')-Ib-cr",
+    "acrAB_overexpression",
+    "acrR_insertion",
+    "ampC_-32T>A",
+    "ampC_-42C>T",
+    "ampC_promoter_mutation",
+    "ant(2'')-Ia",
+    "aph(3'')-Ib",
+    "aph(3')-Ia",
+    "armA",
+    "blaCMY-2",
+    "blaCTX-M-14",
+    "blaCTX-M-15",
+    "blaOXA-1",
+    "blaSHV-1",
+    "blaTEM-1",
+    "blaTEM-2",
+    "cpxAR_mutation",
+    "ftsI_N354D",
+    "ftsI_R517H",
+    "fusA_mutation",
+    "gyrA_D87N",
+    "gyrA_D87Y",
+    "gyrA_S83L",
+    "gyrB_S463A",
+    "marA_overexpression",
+    "marR_G103S",
+    "ompC_mutation",
+    "ompF_loss",
+    "oqxAB",
+    "parC_E84V",
+    "parC_S80I",
+    "parE_L445H",
+    "parE_S458A",
+    "pbp3_mutation",
+    "qepA1",
+    "qnrA1",
+    "qnrB1",
+    "qnrS1",
+    "rmtB",
+    "rpsL_K43R",
+    "rpsL_K88R",
+    "rrs_A1408G",
+    "rrs_C1409T",
+    "soxS_overexpression",
+    "tolC_overexpression",
+    "tufA_mutation",
+    "yojI_overexpression"
+  ],
+  "label_mapping": {
+    "Susceptible": 0,
+    "Intermediate": 1,
+    "Resistant": 2
+  },
+  "results": {
+    "ampicillin": {
+      "accuracy": 0.915,
+      "auc": 0.9885,
+      "mcc": 0.8619,
+      "cv_accuracy_mean": 0.926,
+      "cv_accuracy_std": 0.0135,
+      "classification_report": {
+        "Susceptible": {
+          "precision": 0.9516129032258065,
+          "recall": 0.9833333333333333,
+          "f1-score": 0.9672131147540983,
+          "support": 180.0
+        },
+        "Intermediate": {
+          "precision": 0.7166666666666667,
+          "recall": 0.7166666666666667,
+          "f1-score": 0.7166666666666667,
+          "support": 60.0
+        },
+        "Resistant": {
+          "precision": 0.948051948051948,
+          "recall": 0.9125,
+          "f1-score": 0.9299363057324841,
+          "support": 160.0
+        },
+        "accuracy": 0.915,
+        "macro avg": {
+          "precision": 0.8721105059814738,
+          "recall": 0.8708333333333332,
+          "f1-score": 0.871272029051083,
+          "support": 400.0
+        },
+        "weighted avg": {
+          "precision": 0.9149465856723922,
+          "recall": 0.915,
+          "f1-score": 0.9147204239323379,
+          "support": 400.0
+        }
+      },
+      "confusion_matrix": [
+        [
+          177,
+          3,
+          0
+        ],
+        [
+          9,
+          43,
+          8
+        ],
+        [
+          0,
+          14,
+          146
+        ]
+      ],
+      "n_train": 1600,
+      "n_test": 400,
+      "top_features": [
+        {
+          "gene": "blaSHV-1",
+          "importance": 0.097905
+        },
+        {
+          "gene": "blaCTX-M-14",
+          "importance": 0.081168
+        },
+        {
+          "gene": "aac(3)-IVa",
+          "importance": 0.073986
+        },
+        {
+          "gene": "blaOXA-1",
+          "importance": 0.067295
+        },
+        {
+          "gene": "aac(3)-IIa",
+          "importance": 0.064553
+        },
+        {
+          "gene": "blaTEM-1",
+          "importance": 0.054743
+        },
+        {
+          "gene": "blaCTX-M-15",
+          "importance": 0.054028
+        },
+        {
+          "gene": "qnrB1",
+          "importance": 0.050071
+        },
+        {
+          "gene": "qnrA1",
+          "importance": 0.049579
+        },
+        {
+          "gene": "qnrS1",
+          "importance": 0.042481
+        },
+        {
+          "gene": "aac(6')-Ib",
+          "importance": 0.041536
+        },
+        {
+          "gene": "blaCMY-2",
+          "importance": 0.041446
+        },
+        {
+          "gene": "blaTEM-2",
+          "importance": 0.039234
+        },
+        {
+          "gene": "ampC_promoter_mutation",
+          "importance": 0.038224
+        },
+        {
+          "gene": "ampC_-42C>T",
+          "importance": 0.030051
+        }
+      ]
+    },
+    "ciprofloxacin": {
+      "accuracy": 0.9225,
+      "auc": 0.9864,
+      "mcc": 0.8738,
+      "cv_accuracy_mean": 0.9255,
+      "cv_accuracy_std": 0.0139,
+      "classification_report": {
+        "Susceptible": {
+          "precision": 0.9613259668508287,
+          "recall": 0.9666666666666667,
+          "f1-score": 0.96398891966759,
+          "support": 180.0
+        },
+        "Intermediate": {
+          "precision": 0.7457627118644068,
+          "recall": 0.7333333333333333,
+          "f1-score": 0.7394957983193278,
+          "support": 60.0
+        },
+        "Resistant": {
+          "precision": 0.94375,
+          "recall": 0.94375,
+          "f1-score": 0.94375,
+          "support": 160.0
+        },
+        "accuracy": 0.9225,
+        "macro avg": {
+          "precision": 0.8836128929050785,
+          "recall": 0.88125,
+          "f1-score": 0.882411572662306,
+          "support": 400.0
+        },
+        "weighted avg": {
+          "precision": 0.9219610918625339,
+          "recall": 0.9225,
+          "f1-score": 0.9222193835983147,
+          "support": 400.0
+        }
+      },
+      "confusion_matrix": [
+        [
+          174,
+          6,
+          0
+        ],
+        [
+          7,
+          44,
+          9
+        ],
+        [
+          0,
+          9,
+          151
+        ]
+      ],
+      "n_train": 1600,
+      "n_test": 400,
+      "top_features": [
+        {
+          "gene": "oqxAB",
+          "importance": 0.096809
+        },
+        {
+          "gene": "qepA1",
+          "importance": 0.087817
+        },
+        {
+          "gene": "qnrA1",
+          "importance": 0.078738
+        },
+        {
+          "gene": "aac(3)-IIa",
+          "importance": 0.071121
+        },
+        {
+          "gene": "blaTEM-2",
+          "importance": 0.06954
+        },
+        {
+          "gene": "blaSHV-1",
+          "importance": 0.066804
+        },
+        {
+          "gene": "qnrS1",
+          "importance": 0.063333
+        },
+        {
+          "gene": "aac(3)-IVa",
+          "importance": 0.050661
+        },
+        {
+          "gene": "blaTEM-1",
+          "importance": 0.049097
+        },
+        {
+          "gene": "aac(6')-Ib",
+          "importance": 0.045304
+        },
+        {
+          "gene": "aac(6')-Ib-cr",
+          "importance": 0.043003
+        },
+        {
+          "gene": "qnrB1",
+          "importance": 0.038134
+        },
+        {
+          "gene": "gyrB_S463A",
+          "importance": 0.030989
+        },
+        {
+          "gene": "parE_L445H",
+          "importance": 0.027262
+        },
+        {
+          "gene": "gyrA_D87N",
+          "importance": 0.025779
+        }
+      ]
+    },
+    "gentamicin": {
+      "accuracy": 0.9425,
+      "auc": 0.9883,
+      "mcc": 0.9063,
+      "cv_accuracy_mean": 0.928,
+      "cv_accuracy_std": 0.0086,
+      "classification_report": {
+        "Susceptible": {
+          "precision": 0.9781420765027322,
+          "recall": 0.9944444444444445,
+          "f1-score": 0.9862258953168044,
+          "support": 180.0
+        },
+        "Intermediate": {
+          "precision": 0.8245614035087719,
+          "recall": 0.7833333333333333,
+          "f1-score": 0.8034188034188035,
+          "support": 60.0
+        },
+        "Resistant": {
+          "precision": 0.94375,
+          "recall": 0.94375,
+          "f1-score": 0.94375,
+          "support": 160.0
+        },
+        "accuracy": 0.9425,
+        "macro avg": {
+          "precision": 0.9154844933371681,
+          "recall": 0.9071759259259259,
+          "f1-score": 0.9111315662452025,
+          "support": 400.0
+        },
+        "weighted avg": {
+          "precision": 0.9413481449525453,
+          "recall": 0.9425,
+          "f1-score": 0.9418144734053826,
+          "support": 400.0
+        }
+      },
+      "confusion_matrix": [
+        [
+          179,
+          1,
+          0
+        ],
+        [
+          4,
+          47,
+          9
+        ],
+        [
+          0,
+          9,
+          151
+        ]
+      ],
+      "n_train": 1600,
+      "n_test": 400,
+      "top_features": [
+        {
+          "gene": "rmtB",
+          "importance": 0.102515
+        },
+        {
+          "gene": "aac(3)-IVa",
+          "importance": 0.090734
+        },
+        {
+          "gene": "blaSHV-1",
+          "importance": 0.078229
+        },
+        {
+          "gene": "ant(2'')-Ia",
+          "importance": 0.069833
+        },
+        {
+          "gene": "qnrS1",
+          "importance": 0.069006
+        },
+        {
+          "gene": "aph(3')-Ia",
+          "importance": 0.067212
+        },
+        {
+          "gene": "aac(6')-Ib",
+          "importance": 0.061755
+        },
+        {
+          "gene": "blaTEM-1",
+          "importance": 0.051814
+        },
+        {
+          "gene": "qnrA1",
+          "importance": 0.0469
+        },
+        {
+          "gene": "blaTEM-2",
+          "importance": 0.04053
+        },
+        {
+          "gene": "armA",
+          "importance": 0.039861
+        },
+        {
+          "gene": "aac(3)-IIa",
+          "importance": 0.039821
+        },
+        {
+          "gene": "qnrB1",
+          "importance": 0.03304
+        },
+        {
+          "gene": "rpsL_K88R",
+          "importance": 0.027429
+        },
+        {
+          "gene": "aph(3'')-Ib",
+          "importance": 0.023987
+        }
+      ]
+    }
+  },
+  "feature_importance": {
+    "ampicillin": [
+      {
+        "gene": "blaSHV-1",
+        "importance": 0.097905,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "blaCTX-M-14",
+        "importance": 0.081168,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "aac(3)-IVa",
+        "importance": 0.073986,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "blaOXA-1",
+        "importance": 0.067295,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "aac(3)-IIa",
+        "importance": 0.064553,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "blaTEM-1",
+        "importance": 0.054743,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "blaCTX-M-15",
+        "importance": 0.054028,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "qnrB1",
+        "importance": 0.050071,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ciprofloxacin"
+      },
+      {
+        "gene": "qnrA1",
+        "importance": 0.049579,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ciprofloxacin"
+      },
+      {
+        "gene": "qnrS1",
+        "importance": 0.042481,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ciprofloxacin"
+      },
+      {
+        "gene": "aac(6')-Ib",
+        "importance": 0.041536,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "blaCMY-2",
+        "importance": 0.041446,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "blaTEM-2",
+        "importance": 0.039234,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "ampC_promoter_mutation",
+        "importance": 0.038224,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "ampC_-42C>T",
+        "importance": 0.030051,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ampicillin resistance"
+      },
+      {
+        "gene": "ampC_-32T>A",
+        "importance": 0.027764,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ampicillin resistance"
+      },
+      {
+        "gene": "ftsI_R517H",
+        "importance": 0.021952,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ampicillin resistance"
+      },
+      {
+        "gene": "ftsI_N354D",
+        "importance": 0.020842,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ampicillin resistance"
+      },
+      {
+        "gene": "marR_G103S",
+        "importance": 0.018522,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ampicillin resistance"
+      },
+      {
+        "gene": "acrR_insertion",
+        "importance": 0.017948,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ampicillin resistance"
+      },
+      {
+        "gene": "pbp3_mutation",
+        "importance": 0.016741,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ampicillin"
+      },
+      {
+        "gene": "acrAB_overexpression",
+        "importance": 0.014054,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ampicillin"
+      },
+      {
+        "gene": "ompC_mutation",
+        "importance": 0.013033,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ampicillin"
+      },
+      {
+        "gene": "marA_overexpression",
+        "importance": 0.011733,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ampicillin"
+      },
+      {
+        "gene": "ompF_loss",
+        "importance": 0.011108,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ampicillin"
+      },
+      {
+        "gene": "aac(6')-Ib-cr",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ciprofloxacin"
+      },
+      {
+        "gene": "ant(2'')-Ia",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "aph(3'')-Ib",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "aph(3')-Ia",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "armA",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "cpxAR_mutation",
+        "importance": 0.0,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for gentamicin"
+      },
+      {
+        "gene": "fusA_mutation",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with gentamicin resistance"
+      },
+      {
+        "gene": "gyrA_D87N",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "gyrA_D87Y",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "gyrA_S83L",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "gyrB_S463A",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "oqxAB",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ciprofloxacin"
+      },
+      {
+        "gene": "parC_E84V",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "parC_S80I",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "parE_L445H",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "parE_S458A",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "qepA1",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ciprofloxacin"
+      },
+      {
+        "gene": "rmtB",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "rpsL_K43R",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with gentamicin resistance"
+      },
+      {
+        "gene": "rpsL_K88R",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with gentamicin resistance"
+      },
+      {
+        "gene": "rrs_A1408G",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with gentamicin resistance"
+      },
+      {
+        "gene": "rrs_C1409T",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with gentamicin resistance"
+      },
+      {
+        "gene": "soxS_overexpression",
+        "importance": 0.0,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ciprofloxacin"
+      },
+      {
+        "gene": "tolC_overexpression",
+        "importance": 0.0,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ciprofloxacin"
+      },
+      {
+        "gene": "tufA_mutation",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with gentamicin resistance"
+      },
+      {
+        "gene": "yojI_overexpression",
+        "importance": 0.0,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for gentamicin"
+      }
+    ],
+    "ciprofloxacin": [
+      {
+        "gene": "oqxAB",
+        "importance": 0.096809,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ciprofloxacin"
+      },
+      {
+        "gene": "qepA1",
+        "importance": 0.087817,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ciprofloxacin"
+      },
+      {
+        "gene": "qnrA1",
+        "importance": 0.078738,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ciprofloxacin"
+      },
+      {
+        "gene": "aac(3)-IIa",
+        "importance": 0.071121,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "blaTEM-2",
+        "importance": 0.06954,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "blaSHV-1",
+        "importance": 0.066804,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "qnrS1",
+        "importance": 0.063333,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ciprofloxacin"
+      },
+      {
+        "gene": "aac(3)-IVa",
+        "importance": 0.050661,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "blaTEM-1",
+        "importance": 0.049097,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "aac(6')-Ib",
+        "importance": 0.045304,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "aac(6')-Ib-cr",
+        "importance": 0.043003,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ciprofloxacin"
+      },
+      {
+        "gene": "qnrB1",
+        "importance": 0.038134,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ciprofloxacin"
+      },
+      {
+        "gene": "gyrB_S463A",
+        "importance": 0.030989,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "parE_L445H",
+        "importance": 0.027262,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "gyrA_D87N",
+        "importance": 0.025779,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "gyrA_S83L",
+        "importance": 0.024959,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "parC_S80I",
+        "importance": 0.019782,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "gyrA_D87Y",
+        "importance": 0.018946,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "parE_S458A",
+        "importance": 0.016945,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "parC_E84V",
+        "importance": 0.014819,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "marA_overexpression",
+        "importance": 0.013893,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ampicillin"
+      },
+      {
+        "gene": "tolC_overexpression",
+        "importance": 0.013251,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ciprofloxacin"
+      },
+      {
+        "gene": "ompF_loss",
+        "importance": 0.013062,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ampicillin"
+      },
+      {
+        "gene": "soxS_overexpression",
+        "importance": 0.011634,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ciprofloxacin"
+      },
+      {
+        "gene": "acrAB_overexpression",
+        "importance": 0.008318,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ampicillin"
+      },
+      {
+        "gene": "acrR_insertion",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ampicillin resistance"
+      },
+      {
+        "gene": "ampC_-32T>A",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ampicillin resistance"
+      },
+      {
+        "gene": "ampC_-42C>T",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ampicillin resistance"
+      },
+      {
+        "gene": "ampC_promoter_mutation",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "ant(2'')-Ia",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "aph(3'')-Ib",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "aph(3')-Ia",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "armA",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "blaCMY-2",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "blaCTX-M-14",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "blaCTX-M-15",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "blaOXA-1",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "cpxAR_mutation",
+        "importance": 0.0,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for gentamicin"
+      },
+      {
+        "gene": "ftsI_N354D",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ampicillin resistance"
+      },
+      {
+        "gene": "ftsI_R517H",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ampicillin resistance"
+      },
+      {
+        "gene": "fusA_mutation",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with gentamicin resistance"
+      },
+      {
+        "gene": "marR_G103S",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ampicillin resistance"
+      },
+      {
+        "gene": "ompC_mutation",
+        "importance": 0.0,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ampicillin"
+      },
+      {
+        "gene": "pbp3_mutation",
+        "importance": 0.0,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ampicillin"
+      },
+      {
+        "gene": "rmtB",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "rpsL_K43R",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with gentamicin resistance"
+      },
+      {
+        "gene": "rpsL_K88R",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with gentamicin resistance"
+      },
+      {
+        "gene": "rrs_A1408G",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with gentamicin resistance"
+      },
+      {
+        "gene": "rrs_C1409T",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with gentamicin resistance"
+      },
+      {
+        "gene": "tufA_mutation",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with gentamicin resistance"
+      },
+      {
+        "gene": "yojI_overexpression",
+        "importance": 0.0,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for gentamicin"
+      }
+    ],
+    "gentamicin": [
+      {
+        "gene": "rmtB",
+        "importance": 0.102515,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "aac(3)-IVa",
+        "importance": 0.090734,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "blaSHV-1",
+        "importance": 0.078229,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "ant(2'')-Ia",
+        "importance": 0.069833,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "qnrS1",
+        "importance": 0.069006,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ciprofloxacin"
+      },
+      {
+        "gene": "aph(3')-Ia",
+        "importance": 0.067212,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "aac(6')-Ib",
+        "importance": 0.061755,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "blaTEM-1",
+        "importance": 0.051814,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "qnrA1",
+        "importance": 0.0469,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ciprofloxacin"
+      },
+      {
+        "gene": "blaTEM-2",
+        "importance": 0.04053,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "armA",
+        "importance": 0.039861,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "aac(3)-IIa",
+        "importance": 0.039821,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "qnrB1",
+        "importance": 0.03304,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ciprofloxacin"
+      },
+      {
+        "gene": "rpsL_K88R",
+        "importance": 0.027429,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with gentamicin resistance"
+      },
+      {
+        "gene": "aph(3'')-Ib",
+        "importance": 0.023987,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for gentamicin"
+      },
+      {
+        "gene": "tufA_mutation",
+        "importance": 0.022219,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with gentamicin resistance"
+      },
+      {
+        "gene": "rrs_A1408G",
+        "importance": 0.021826,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with gentamicin resistance"
+      },
+      {
+        "gene": "rpsL_K43R",
+        "importance": 0.018808,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with gentamicin resistance"
+      },
+      {
+        "gene": "rrs_C1409T",
+        "importance": 0.018586,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with gentamicin resistance"
+      },
+      {
+        "gene": "fusA_mutation",
+        "importance": 0.017451,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with gentamicin resistance"
+      },
+      {
+        "gene": "acrAB_overexpression",
+        "importance": 0.012862,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ampicillin"
+      },
+      {
+        "gene": "yojI_overexpression",
+        "importance": 0.012276,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for gentamicin"
+      },
+      {
+        "gene": "tolC_overexpression",
+        "importance": 0.011469,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ciprofloxacin"
+      },
+      {
+        "gene": "ompF_loss",
+        "importance": 0.010926,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ampicillin"
+      },
+      {
+        "gene": "cpxAR_mutation",
+        "importance": 0.010911,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for gentamicin"
+      },
+      {
+        "gene": "aac(6')-Ib-cr",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ciprofloxacin"
+      },
+      {
+        "gene": "acrR_insertion",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ampicillin resistance"
+      },
+      {
+        "gene": "ampC_-32T>A",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ampicillin resistance"
+      },
+      {
+        "gene": "ampC_-42C>T",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ampicillin resistance"
+      },
+      {
+        "gene": "ampC_promoter_mutation",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "blaCMY-2",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "blaCTX-M-14",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "blaCTX-M-15",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "blaOXA-1",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ampicillin"
+      },
+      {
+        "gene": "ftsI_N354D",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ampicillin resistance"
+      },
+      {
+        "gene": "ftsI_R517H",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ampicillin resistance"
+      },
+      {
+        "gene": "gyrA_D87N",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "gyrA_D87Y",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "gyrA_S83L",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "gyrB_S463A",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "marA_overexpression",
+        "importance": 0.0,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ampicillin"
+      },
+      {
+        "gene": "marR_G103S",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ampicillin resistance"
+      },
+      {
+        "gene": "ompC_mutation",
+        "importance": 0.0,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ampicillin"
+      },
+      {
+        "gene": "oqxAB",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ciprofloxacin"
+      },
+      {
+        "gene": "parC_E84V",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "parC_S80I",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "parE_L445H",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "parE_S458A",
+        "importance": 0.0,
+        "category": "snp_marker",
+        "mechanism": "SNP marker associated with ciprofloxacin resistance"
+      },
+      {
+        "gene": "pbp3_mutation",
+        "importance": 0.0,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ampicillin"
+      },
+      {
+        "gene": "qepA1",
+        "importance": 0.0,
+        "category": "primary_resistance",
+        "mechanism": "Primary resistance gene for ciprofloxacin"
+      },
+      {
+        "gene": "soxS_overexpression",
+        "importance": 0.0,
+        "category": "secondary_mechanism",
+        "mechanism": "Secondary resistance mechanism for ciprofloxacin"
+      }
+    ]
+  },
+  "gene_panels": {
+    "ampicillin": {
+      "primary": [
+        "blaTEM-1",
+        "blaTEM-2",
+        "blaSHV-1",
+        "blaCTX-M-15",
+        "blaCTX-M-14",
+        "blaOXA-1",
+        "blaCMY-2",
+        "ampC_promoter_mutation"
+      ],
+      "secondary": [
+        "ompF_loss",
+        "ompC_mutation",
+        "marA_overexpression",
+        "acrAB_overexpression",
+        "pbp3_mutation"
+      ],
+      "snps": [
+        "ftsI_R517H",
+        "ftsI_N354D",
+        "ampC_-42C>T",
+        "ampC_-32T>A",
+        "marR_G103S",
+        "acrR_insertion"
+      ]
+    },
+    "ciprofloxacin": {
+      "primary": [
+        "qnrA1",
+        "qnrB1",
+        "qnrS1",
+        "aac(6')-Ib-cr",
+        "qepA1",
+        "oqxAB"
+      ],
+      "secondary": [
+        "acrAB_overexpression",
+        "marA_overexpression",
+        "tolC_overexpression",
+        "ompF_loss",
+        "soxS_overexpression"
+      ],
+      "snps": [
+        "gyrA_S83L",
+        "gyrA_D87N",
+        "gyrA_D87Y",
+        "parC_S80I",
+        "parC_E84V",
+        "parE_S458A",
+        "parE_L445H",
+        "gyrB_S463A"
+      ]
+    },
+    "gentamicin": {
+      "primary": [
+        "aac(3)-IIa",
+        "aac(3)-IVa",
+        "aac(6')-Ib",
+        "ant(2'')-Ia",
+        "aph(3')-Ia",
+        "aph(3'')-Ib",
+        "armA",
+        "rmtB"
+      ],
+      "secondary": [
+        "acrAB_overexpression",
+        "tolC_overexpression",
+        "cpxAR_mutation",
+        "ompF_loss",
+        "yojI_overexpression"
+      ],
+      "snps": [
+        "rpsL_K43R",
+        "rpsL_K88R",
+        "rrs_A1408G",
+        "rrs_C1409T",
+        "fusA_mutation",
+        "tufA_mutation"
+      ]
+    }
+  }
+}

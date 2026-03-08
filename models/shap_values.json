@@ -1,0 +1,188 @@
+{
+  "ampicillin": [
+    {
+      "gene": "blaSHV-1",
+      "importance": 0.097905
+    },
+    {
+      "gene": "blaCTX-M-14",
+      "importance": 0.081168
+    },
+    {
+      "gene": "aac(3)-IVa",
+      "importance": 0.073986
+    },
+    {
+      "gene": "blaOXA-1",
+      "importance": 0.067295
+    },
+    {
+      "gene": "aac(3)-IIa",
+      "importance": 0.064553
+    },
+    {
+      "gene": "blaTEM-1",
+      "importance": 0.054743
+    },
+    {
+      "gene": "blaCTX-M-15",
+      "importance": 0.054028
+    },
+    {
+      "gene": "qnrB1",
+      "importance": 0.050071
+    },
+    {
+      "gene": "qnrA1",
+      "importance": 0.049579
+    },
+    {
+      "gene": "qnrS1",
+      "importance": 0.042481
+    },
+    {
+      "gene": "aac(6')-Ib",
+      "importance": 0.041536
+    },
+    {
+      "gene": "blaCMY-2",
+      "importance": 0.041446
+    },
+    {
+      "gene": "blaTEM-2",
+      "importance": 0.039234
+    },
+    {
+      "gene": "ampC_promoter_mutation",
+      "importance": 0.038224
+    },
+    {
+      "gene": "ampC_-42C>T",
+      "importance": 0.030051
+    }
+  ],
+  "ciprofloxacin": [
+    {
+      "gene": "oqxAB",
+      "importance": 0.096809
+    },
+    {
+      "gene": "qepA1",
+      "importance": 0.087817
+    },
+    {
+      "gene": "qnrA1",
+      "importance": 0.078738
+    },
+    {
+      "gene": "aac(3)-IIa",
+      "importance": 0.071121
+    },
+    {
+      "gene": "blaTEM-2",
+      "importance": 0.06954
+    },
+    {
+      "gene": "blaSHV-1",
+      "importance": 0.066804
+    },
+    {
+      "gene": "qnrS1",
+      "importance": 0.063333
+    },
+    {
+      "gene": "aac(3)-IVa",
+      "importance": 0.050661
+    },
+    {
+      "gene": "blaTEM-1",
+      "importance": 0.049097
+    },
+    {
+      "gene": "aac(6')-Ib",
+      "importance": 0.045304
+    },
+    {
+      "gene": "aac(6')-Ib-cr",
+      "importance": 0.043003
+    },
+    {
+      "gene": "qnrB1",
+      "importance": 0.038134
+    },
+    {
+      "gene": "gyrB_S463A",
+      "importance": 0.030989
+    },
+    {
+      "gene": "parE_L445H",
+      "importance": 0.027262
+    },
+    {
+      "gene": "gyrA_D87N",
+      "importance": 0.025779
+    }
+  ],
+  "gentamicin": [
+    {
+      "gene": "rmtB",
+      "importance": 0.102515
+    },
+    {
+      "gene": "aac(3)-IVa",
+      "importance": 0.090734
+    },
+    {
+      "gene": "blaSHV-1",
+      "importance": 0.078229
+    },
+    {
+      "gene": "ant(2'')-Ia",
+      "importance": 0.069833
+    },
+    {
+      "gene": "qnrS1",
+      "importance": 0.069006
+    },
+    {
+      "gene": "aph(3')-Ia",
+      "importance": 0.067212
+    },
+    {
+      "gene": "aac(6')-Ib",
+      "importance": 0.061755
+    },
+    {
+      "gene": "blaTEM-1",
+      "importance": 0.051814
+    },
+    {
+      "gene": "qnrA1",
+      "importance": 0.0469
+    },
+    {
+      "gene": "blaTEM-2",
+      "importance": 0.04053
+    },
+    {
+      "gene": "armA",
+      "importance": 0.039861
+    },
+    {
+      "gene": "aac(3)-IIa",
+      "importance": 0.039821
+    },
+    {
+      "gene": "qnrB1",
+      "importance": 0.03304
+    },
+    {
+      "gene": "rpsL_K88R",
+      "importance": 0.027429
+    },
+    {
+      "gene": "aph(3'')-Ib",
+      "importance": 0.023987
+    }
+  ]
+}
